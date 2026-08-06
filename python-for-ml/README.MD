@@ -18,7 +18,17 @@ By completing this roadmap, you will be able to perform the following tasks inde
 python-for-ml/
 ├── notebooks/         # Jupyter Notebooks for lessons & EDA drafts
 ├── exercises/         # Weekly practical exercises
-├── mini_projects/     # End-to-end data analysis project
+├── mini_projects/student_performance/  # End-to-end data analysis project
+|   ├── data/
+|   │   ├── raw/
+|   │   └── processed/
+|   ├── notebooks/
+|   │   └── student_performance_analysis.ipynb
+|   ├── reports/
+|   │   └── figures/
+|   ├── src/
+|   │   └── data_utils.py
+|   └── README.md    
 ├── data/              # Raw and processed datasets (.csv, .json)
 ├── README.md          # Roadmap documentation
 └── requirements.txt   # Required Python packages
