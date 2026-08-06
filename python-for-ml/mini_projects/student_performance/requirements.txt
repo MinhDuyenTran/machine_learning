@@ -1,0 +1,13 @@
+# Dữ liệu & Tính toán
+pandas
+numpy
+
+# Trực quan hóa dữ liệu
+matplotlib
+seaborn
+
+# Hỗ trợ Jupyter Notebook
+ipykernel
+
+# Machine Learning (nếu sau này bạn làm mô hình dự đoán điểm)
+scikit-learn
