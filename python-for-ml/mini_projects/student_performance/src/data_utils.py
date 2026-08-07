@@ -205,3 +205,58 @@ def clean_student_data(df: pd.DataFrame,) -> pd.DataFrame:
         )
 
     return cleaned_df.reset_index(drop=True)
+
+def create_score_features(
+    df: pd.DataFrame,
+) -> pd.DataFrame:
+
+
+    featured_df = df.copy(deep=True)
+
+    featured_df["average_score"] = (
+        featured_df["assignment_score"] * 0.2
+        + featured_df["midterm_score"] * 0.3
+        + featured_df["final_score"] * 0.5
+    ).round(2)
+
+    featured_df["passed"] = (
+        featured_df["average_score"] >= 5
+    )
+
+    featured_df["study_level"] = pd.cut(
+        featured_df["study_hours"],
+        bins=[0, 5, 10, 20, np.inf],
+        labels=[
+            "Low",
+            "Moderate",
+            "High",
+            "Very high",
+        ],
+        include_lowest=True,
+    )
+
+    featured_df["score_improvement"] = (
+        featured_df["final_score"]
+        - featured_df["midterm_score"]
+    ).round(2)
+
+    return featured_df
+
+def find_iqr_outliers(df: pd.DataFrame, column: str,) -> pd.DataFrame:
+    
+    if column not in df.columns:
+        raise ValueError(
+            f"Column not found: {column}"
+        )
+
+    q1 = df[column].quantile(0.25)
+    q3 = df[column].quantile(0.75)
+    iqr = q3 - q1
+
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+
+    return df[
+        (df[column] < lower_bound)
+        | (df[column] > upper_bound)
+    ].copy()
